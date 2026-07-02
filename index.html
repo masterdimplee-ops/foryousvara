@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To My Favorite Person</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      font-family:'Quicksand',sans-serif;
+      margin:0;
+      overflow-x:hidden;
+      color:#5a3b4a;
+    }
+
+    .script{font-family:'Dancing Script',cursive}
+
+    /* dreamy background */
+    #bg{
+      position:fixed;inset:0;z-index:-2;
+      background:linear-gradient(120deg,#ffd6e8,#cfe8ff,#e9d5ff,#fff);
+      background-size:300% 300%;
+      animation:move 18s ease infinite;
+    }
+
+    @keyframes move{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    /* floating hearts */
+    .heart{
+      position:fixed;
+      bottom:-10px;
+      color:#ff6fa9;
+      font-size:18px;
+      animation:floatUp linear infinite;
+      z-index:-1;
+      opacity:.7;
+    }
+
+    @keyframes floatUp{
+      0%{transform:translateY(0) scale(.5);opacity:0}
+      10%{opacity:1}
+      100%{transform:translateY(-110vh) scale(1.2);opacity:0}
+    }
+
+    .glass{
+      backdrop-filter:blur(12px);
+      background:rgba(255,255,255,.55);
+      border-radius:22px;
+      padding:20px;
+      box-shadow:0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .btn{cursor:pointer;transition:.3s}
+    .btn:hover{transform:scale(1.08)}
+  </style>
+</head>
+
+<body>
+
+<div id="bg"></div>
+
+<!-- floating hearts container -->
+<div id="hearts"></div>
+
+<!-- AUDIO -->
+<audio id="bgm" src="Bazzi_-_Beautiful.mp3" loop></audio>
+
+<!-- MUSIC BUTTON -->
+<div class="fixed top-4 right-4 z-50">
+  <button id="musicBtn" class="glass btn">
+    <i data-lucide="music"></i>
+  </button>
+</div>
+
+<!-- HERO -->
+<section class="h-screen flex items-center justify-center text-center px-4">
+  <div class="glass max-w-xl">
+    <h1 class="script text-5xl">To My Favorite Person, Svara 💖</h1>
+    <p class="mt-4 text-lg">
+      I’m sorry for what happened between us...
+    </p>
+    <p class="mt-3 text-sm opacity-80">
+      I hope we both find peace and keep moving forward...
+    </p>
+
+    <button class="btn mt-6 px-6 py-2 bg-pink-300 rounded-full"
+      onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">
+      Start
+    </button>
+  </div>
+</section>
+
+<!-- SECTION 1 -->
+<section id="s1" class="p-10 text-center">
+  <h2 class="script text-4xl mb-6">Reasons I Like You</h2>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="glass">You were a beautiful part of my life ✨</div>
+    <div class="glass">Thank you for the moments we shared🌸</div>
+    <div class="glass">I’ll always wish you well 💗</div>
+  </div>
+</section>
+
+<!-- MESSAGE -->
+<section class="p-10 text-center">
+  <div class="glass max-w-2xl mx-auto">
+    <h2 class="script text-4xl mb-4">A Message for You</h2>
+    <p>
+     I hope you don’t give up on yourself.
+      <br><br>
+      Even when things feel slow, you’re still growing.
+      <br><br>
+      And if I could pause one moment forever, it would be the moment when we were still together.
+    </p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="p-10 text-center">
+  <h2 class="script text-4xl mb-6">Memories</h2>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <img src="Picsart_26-07-02_10-25-53-173.jpg" class="rounded-xl">
+    <img src="Picsart_26-07-02_10-26-57-596.jpg" class="rounded-xl">
+    <img src="Picsart_26-07-02_10-27-27-818.jpg" class="rounded-xl">
+  </div>
+  
+</section>
+<section class="p-10 text-center">
+  <h2 class="script text-4xl mb-6">✨</h2>
+
+  <div class="glass max-w-2xl mx-auto">
+    <video autoplay muted loop playsinline class="rounded-xl w-full">
+      <source src="lv_0_20260702104020.mp4" type="video/mp4">
+    </video>
+  </div>
+  
+</section>
+<!-- FINAL -->
+<section class="p-20 text-center">
+  <h2 class="script text-5xl">No matter where life takes us, I’ll always support you, Svara 💖</h2>
+  <p class="mt-4 opacity-80">
+    Even from a distance, you matter to me more than you know.
+  </p>
+</section>
+
+<script>
+lucide.createIcons();
+
+/* MUSIC */
+const musicBtn = document.getElementById("musicBtn");
+const bgm = document.getElementById("bgm");
+let playing = false;
+
+musicBtn.addEventListener("click", async () => {
+  playing = !playing;
+
+  if (playing) {
+    try {
+      await bgm.play();
+      musicBtn.innerHTML = '<i data-lucide="volume-2"></i>';
+    } catch {
+      alert("Tap once more to enable audio");
+    }
+  } else {
+    bgm.pause();
+    musicBtn.innerHTML = '<i data-lucide="music"></i>';
+  }
+
+  lucide.createIcons();
+});
+
+/* FLOATING HEARTS */
+const hearts = document.getElementById("hearts");
+
+function spawnHeart(){
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💖";
+
+  h.style.left = Math.random()*100 + "vw";
+  h.style.animationDuration = (4 + Math.random()*5) + "s";
+  h.style.fontSize = (12 + Math.random()*20) + "px";
+
+  hearts.appendChild(h);
+
+  setTimeout(()=>h.remove(),9000);
+}
+
+setInterval(spawnHeart,300);
+</script>
+
+</body>
+</html>
